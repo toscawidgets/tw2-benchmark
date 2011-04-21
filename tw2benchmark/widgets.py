@@ -7,7 +7,7 @@ import tw.api
 tw2csslink = tw2.core.CSSLink(filename='test.css')
 tw1csslink = tw.api.CSSLink(filename='test.css')
 
-itertest_passes = 10
+itertest_passes = 100
 
 fake_env = {
     'PATH_INFO' : '/',

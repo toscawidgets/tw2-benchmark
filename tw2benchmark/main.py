@@ -10,7 +10,8 @@ if __name__ == '__main__':
     from widgets import test_wsgi_app_works
     test_wsgi_app_works()
 
-    num_tests = 7
+    num_tests = 9
+    test_range = map(str, range(1, num_tests+1))
     passes = 10
 
     print "tw2-benchmark"
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     print
 
     results = {}
-    for test in map(str, range(1, num_tests+1)):
+    for test in test_range:
         func = "test%s" % test
         results[func] = {}
         for lib in ['tw1', 'tw2']:
@@ -53,11 +54,12 @@ if __name__ == '__main__':
     print "--------------------------------"
     print
 
-    for test in map(str, range(1, num_tests+1)):
+    for test in test_range:
         func = "test%s" % test
         print func + " -" + getattr(widgets, func).__doc__ + "::"
         print
         for lib in ['tw1', 'tw2']:
+            statement = "%s('%s')" % (func, lib)
             print "  ", statement,
             print "  min: %.4f" % (passes * results[func][lib]['min']/passes),
             print "  max: %.4f" % (passes * results[func][lib]['max']/passes),
@@ -69,7 +71,7 @@ if __name__ == '__main__':
     print "---------------------------------"
     print
 
-    for test in map(str, range(1, num_tests+1)):
+    for test in test_range:
         func = "test%s" % test
         print func
         print "~~~~~"

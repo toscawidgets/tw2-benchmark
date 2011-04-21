@@ -104,6 +104,29 @@ def test_wsgi_app_works():
     status, headers, body2 = fake_request(tw2_app, fake_env)
     assert(body1 == body2)
 
+
+def test9(lib):
+    """ Minimizing tw2 subclasses with params in display """
+    widget = get_widget(lib)
+    if lib == 'tw1':
+        widget = widget()
+    for i in range(itertest_passes):
+        foo = widget.display(boz='faz')
+
+def test8(lib):
+    """ Minimizing tw2 subclasses with params before display"""
+    widget = get_widget(lib)
+    if lib == 'tw1':
+        widget = widget()
+        for i in range(itertest_passes):
+            foo = widget.display(boz='faz')
+    elif lib == 'tw2':
+        widget = widget(boz='faz')
+        for i in range(itertest_passes):
+            foo = widget.display()
+    else:
+        raise ValueError, 'lib is unrecognized'
+
 def test7(lib):
     """ Specifying parameters *and* displaying many times. """
     widget = get_widget(lib)

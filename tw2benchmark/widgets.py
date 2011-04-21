@@ -39,11 +39,12 @@ def get_tw1_widget():
 
 
 def make_wsgi_app(widget, *args, **kwargs):
+    widget = widget(*args)
     def simple_app(environ, start_response):
         status = '200 OK'
         response_headers = [('Content-type','text/plain')]
         start_response(status, response_headers)
-        return [widget(*args).display(**kwargs)]
+        return [widget.display(**kwargs)]
     return simple_app
 
 def fake_request(app, environ):

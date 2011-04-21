@@ -37,6 +37,7 @@ def get_tw1_widget():
             super(tw1Widget, self).update_params(d)
     return tw1Widget
 
+
 def make_wsgi_app(widget, *args, **kwargs):
     def simple_app(environ, start_response):
         status = '200 OK'
@@ -80,6 +81,22 @@ def make_tw2_wsgi_app(resource_multiplier=1):
     tw2_app = RegistryManager(tw2_app)
     return tw2_app
 
+def get_widget(lib):
+    if lib == 'tw1':
+        return get_tw1_widget()
+    elif lib == 'tw2':
+        return get_tw2_widget()
+    else:
+        raise ValueError, "lib is unhandled."
+
+def make_specific_wsgi_app(lib, mul):
+    if lib == 'tw1':
+        return make_tw1_wsgi_app(mul)
+    elif lib == 'tw2':
+        return make_tw2_wsgi_app(mul)
+    else:
+        raise ValueError, "lib is unhandled."
+
 def test_wsgi_app_works():
     tw1_app = make_tw1_wsgi_app(1)
     tw2_app = make_tw2_wsgi_app(1)
@@ -87,60 +104,40 @@ def test_wsgi_app_works():
     status, headers, body2 = fake_request(tw2_app, fake_env)
     assert(body1 == body2)
 
-def test6_tw2():
-    tw2Widget = get_tw2_widget()
+def test7(lib):
+    """ Specifying parameters *and* displaying many times. """
+    widget = get_widget(lib)
     for i in range(itertest_passes):
-        foo = tw2Widget(boz='faz').display()
+        foo = widget().display(boz='faz')
 
-def test6_tw1():
-    tw1Widget = get_tw1_widget()
+def test6(lib):
+    """ Specifying parameters, then displaying many times. """
+    widget = get_widget(lib)(boz='faz')
     for i in range(itertest_passes):
-        foo = tw1Widget().display(boz='faz')
-
-def test5_tw2():
-    tw2Widget = get_tw2_widget()(boz='faz')
-    for i in range(itertest_passes):
-        foo = tw2Widget.display()
-
-def test5_tw1():
-    tw1Widget = get_tw1_widget()()
-    for i in range(itertest_passes):
-        foo = tw1Widget.display(boz='faz')
+        widget.display(boz='faz')
         
-def test4_tw2():
+def test5(lib):
+    """ Instantiating widgets many times (and displaying them) """
     for i in range(itertest_passes):
-        tw2Widget = get_tw2_widget()
-        foo = tw2Widget.display(boz='faz')
+        foo = get_widget(lib)().display(boz='faz')
 
-def test4_tw1():
+def test4(lib):
+    """ Setting up an app. Displaying once. """
+    app = make_specific_wsgi_app(lib, 1)
+    foo = get_widget(lib)().display(boz='faz')
+
+def test3(lib):
+    """ Setting up an app """
+    app = make_specific_wsgi_app(lib, 1)
+
+def test2(lib):
+    """ Handling de-duplication of resources """
+    app = make_specific_wsgi_app(lib, 50)
     for i in range(itertest_passes):
-        tw1Widget = get_tw1_widget()()
-        foo = tw1Widget.display(boz='faz')
+        status, headers, body = fake_request(app, fake_env)
 
-def test3_tw2():
-    tw2_app = make_tw2_wsgi_app(1)
-    status, headers, body = fake_request(tw2_app, fake_env)
-
-def test3_tw1():
-    tw1_app = make_tw1_wsgi_app(1)
-    status, headers, body = fake_request(tw1_app, fake_env)
-
-def test2_tw2():
-    tw2_app = make_tw2_wsgi_app(50)
+def test1(lib):
+    """ Handling many WSGI requests """
+    app = make_specific_wsgi_app(lib, 1)
     for i in range(itertest_passes):
-        status, headers, body = fake_request(tw2_app, fake_env)
-
-def test2_tw1():
-    tw1_app = make_tw1_wsgi_app(50)
-    for i in range(itertest_passes):
-        status, headers, body = fake_request(tw1_app, fake_env)
-
-def test1_tw2():
-    tw2_app = make_tw2_wsgi_app(1)
-    for i in range(itertest_passes):
-        status, headers, body = fake_request(tw2_app, fake_env)
-
-def test1_tw1():
-    tw1_app = make_tw1_wsgi_app(1)
-    for i in range(itertest_passes):
-        status, headers, body = fake_request(tw1_app, fake_env)
+        status, headers, body = fake_request(app, fake_env)

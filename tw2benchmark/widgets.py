@@ -155,7 +155,7 @@ def test3(lib):
     app = make_specific_wsgi_app(lib, 1)
 
 def test2(lib):
-    """ Handling de-duplication of resources """
+    """ Handling many (duplicate) resources """
     app = make_specific_wsgi_app(lib, 50)
     for i in range(itertest_passes):
         status, headers, body = fake_request(app, fake_env)

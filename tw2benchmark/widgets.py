@@ -111,7 +111,7 @@ def test7(lib):
         foo = widget().display(boz='faz')
 
 def test6(lib):
-    """ Specifying parameters, then displaying many times. """
+    """ Specifying parameters once, then displaying many times. """
     widget = get_widget(lib)(boz='faz')
     for i in range(itertest_passes):
         widget.display(boz='faz')

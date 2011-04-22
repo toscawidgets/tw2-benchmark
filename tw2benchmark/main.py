@@ -7,9 +7,6 @@ if __name__ == '__main__':
 
     import widgets
 
-    from widgets import test_wsgi_app_works
-    test_wsgi_app_works()
-
     widget_libs = ['ew', 'tw1', 'tw2']
     num_tests = 7
     test_range = map(str, range(1, num_tests+1))
@@ -20,6 +17,9 @@ if __name__ == '__main__':
     print "Comparing toscawidgets1 with tw2 for speed",
     print "(generated: %s)" % datetime.datetime.now().strftime("%F")
     print
+
+    from widgets import test_wsgi_app_works
+    test_wsgi_app_works()
 
     results = {}
     for test in test_range:

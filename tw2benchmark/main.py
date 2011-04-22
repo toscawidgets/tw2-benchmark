@@ -10,6 +10,7 @@ if __name__ == '__main__':
     from widgets import test_wsgi_app_works
     test_wsgi_app_works()
 
+    widget_libs = ['tw1', 'tw2']
     num_tests = 9
     test_range = map(str, range(1, num_tests+1))
     passes = 10
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     for test in test_range:
         func = "test%s" % test
         results[func] = {}
-        for lib in ['tw1', 'tw2']:
+        for lib in widget_libs:
             statement = "%s('%s')" % (func, lib)
             timer = Timer(
                 stmt=statement,
@@ -38,16 +39,14 @@ if __name__ == '__main__':
     print "------------------"
     print
 
-    for lib, other in [('tw2', 'tw1'), ('tw1', 'tw2')]:
+    for lib in widget_libs:
         print '-', lib, "wins at"
         print
         for func in results.keys():
-            if not results[func][lib]['min'] < results[func][other]['min']:
-                continue
-            print '  -', func + " -" + getattr(widgets, func).__doc__
-            print
-
-        print 
+            if all([results[func][lib]['min'] < results[func][other]['min']
+                    for other in widget_libs if lib != other]):
+                print '  -', func + " -" + getattr(widgets, func).__doc__
+                print
 
 
     print "tests with the ``timeit`` module"
@@ -58,7 +57,7 @@ if __name__ == '__main__':
         func = "test%s" % test
         print func + " -" + getattr(widgets, func).__doc__ + "::"
         print
-        for lib in ['tw1', 'tw2']:
+        for lib in widget_libs:
             statement = "%s('%s')" % (func, lib)
             print "  ", statement,
             print "  min: %.4f" % (passes * results[func][lib]['min']/passes),
@@ -77,7 +76,7 @@ if __name__ == '__main__':
         print "~~~~~"
         print
 
-        for lib in ['tw1', 'tw2']:
+        for lib in widget_libs:
             print func + " with " + lib + " -",
             print getattr(widgets, func).__doc__ + "::"
             print

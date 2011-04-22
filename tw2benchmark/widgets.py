@@ -148,7 +148,7 @@ def test5(lib):
 def test4(lib):
     """ Setting up an app. Displaying once. """
     app = make_specific_wsgi_app(lib, 1)
-    foo = get_widget(lib)().display(boz='faz')
+    fake_request(app, fake_env())
 
 def test3(lib):
     """ Setting up an app """

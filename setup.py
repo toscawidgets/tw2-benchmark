@@ -20,6 +20,7 @@ setup(name='tw2-benchmark',
           # -*- Extra requirements: -*-
           "ToscaWidgets",
           "tw2.core",
+          "EasyWidgets",
           "mako",
           "genshi",
       ],

@@ -10,9 +10,9 @@ if __name__ == '__main__':
     from widgets import test_wsgi_app_works
     test_wsgi_app_works()
 
-    widget_libs = ['tw1', 'tw2']
+    widget_libs = ['ew', 'tw1', 'tw2']
     num_tests = 9
-    test_range = map(str, range(1, num_tests+1))
+    test_range = map(str, range(1, 5))#num_tests+1))
     passes = 10
 
     print "tw2-benchmark"
@@ -27,6 +27,7 @@ if __name__ == '__main__':
         results[func] = {}
         for lib in widget_libs:
             statement = "%s('%s')" % (func, lib)
+            print ".. comment: (running %s)" % statement
             timer = Timer(
                 stmt=statement,
                 setup="from widgets import %s" % func,

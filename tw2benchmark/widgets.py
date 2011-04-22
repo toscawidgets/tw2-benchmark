@@ -97,19 +97,25 @@ def get_widget(lib):
     return lookup[lib]()
 
 def test_wsgi_app_works():
-    # TODO
-    return
-    tw1_app = make_tw1_wsgi_app(1)
-    tw2_app = make_tw2_wsgi_app(1)
-    ew_app = make_ew_wsgi_app(1)
-    status, headers, body1 = fake_request(tw1_app, fake_env)
-    status, headers, body2 = fake_request(tw2_app, fake_env)
-    status, headers, body3 = fake_request(ew_app, fake_env)
-    body1 = body1.strip()
-    body2 = body2.strip()
-    body3 = body3.strip()
-    assert(body1 == body2)
-    assert(body2 == body3)
+    libs = ['tw1', 'tw2', 'ew']
+    results = {}
+    for lib in libs:
+        def prefunc(lib, *args, **kw):
+            return build_widget_smartly(lib, *args, **kw)
+
+        def postfunc(widget, **kwargs):
+            return widget.display(**kwargs)
+
+        app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                            id='some_id', boz='far')
+
+        status, headers, body = fake_request(app, fake_env)
+        results[lib] = body.strip()
+
+    for lib in libs:
+        for other in libs:
+            print ".. comment: Testing %s output against %s" % (lib, other)
+            assert(results[lib] == results[other])
 
 def get_middlewares(lib):
     lookup = {
@@ -128,6 +134,7 @@ def build_widget_smartly(lib, n_resources=1, *args, **kwargs):
     elif lib == 'tw1':
         widget = widget(kwargs['id'])
     elif lib == 'tw2':
+        widget = widget(id=kwargs['id'])
         pass
     return widget
 

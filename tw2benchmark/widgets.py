@@ -9,6 +9,11 @@ import ew.core
 tw2csslink = tw2.core.CSSLink(filename='test.css')
 tw1csslink = tw.api.CSSLink(filename='test.css')
 ewcsslink = ew.CSSLink('test.css')
+css_lookup = {
+    'tw1' : tw1csslink,
+    'tw2' : tw2csslink,
+    'ew' : ewcsslink,
+}
 
 itertest_passes = 100
 
@@ -17,6 +22,7 @@ fake_env = {
     'REQUEST_METHOD' : 'GET',
     'wsgi.url_scheme' : 'http', # easy_widgets depends on this.
 }
+
 
 def get_tw2_widget():
     class tw2Widget(tw2.core.Widget):
@@ -53,18 +59,18 @@ def get_ew_widget():
     return ewWidget
 
 
-def make_wsgi_app(widget, *args, **kwargs):
-    if 'tw2id' in kwargs:
-        widget = widget(*args, id=kwargs['tw2id'])
-        del kwargs['tw2id']
-    else:
-        widget = widget(*args)
+def make_wsgi_app(lib, prefunc, postfunc, middlewares, *args, **kwargs):
+    widget = prefunc(lib, *args, **kwargs)
 
     def simple_app(environ, start_response):
         status = '200 OK'
         response_headers = [('Content-type','text/plain')]
         start_response(status, response_headers)
-        return [widget.display(**kwargs)]
+        return [postfunc(widget, **kwargs)]
+
+    for ware in middlewares:
+        simple_app = ware(simple_app)
+
     return simple_app
 
 def fake_request(app, environ):
@@ -82,38 +88,6 @@ def fake_request(app, environ):
             app_iter.close()
     return status_headers[0], status_headers[1], ''.join(body)
 
-def make_tw1_wsgi_app(resource_multiplier=1):
-    tw1Widget = get_tw1_widget()
-    tw1Widget.resources = [tw1csslink] * resource_multiplier
-    tw1_app = make_wsgi_app(tw1Widget, 'some_id', boz='far')
-    tw1_app = tw.api.make_middleware(app=tw1_app)
-
-    # Yuck -- tw1 requires this.
-    tw1_app = RegistryManager(tw1_app)
-    return tw1_app
-
-def make_tw2_wsgi_app(resource_multiplier=1):
-    tw2Widget = get_tw2_widget()
-    tw2Widget.resources = [tw2csslink] * resource_multiplier
-    tw2_app = make_wsgi_app(tw2Widget, tw2id='some_id', boz='far')
-    tw2_app = tw2.core.make_middleware(app=tw2_app)
-
-    # Just doing this to be fair to tw1
-    tw2_app = RegistryManager(tw2_app)
-    return tw2_app
-
-def make_ew_wsgi_app(resource_multiplier=1):
-    ewWidget = get_ew_widget()
-
-    ewWidget.resources = [ewcsslink] * resource_multiplier
-
-    ew_app = make_wsgi_app(ewWidget, id='some_id', boz='far')
-    ew_app = ew.WidgetMiddleware(ew_app)
-
-    # Just doing this to be fair to tw1
-    ew_app = RegistryManager(ew_app)
-    return ew_app
-
 def get_widget(lib):
     lookup = {
         'tw1' : get_tw1_widget,
@@ -122,15 +96,9 @@ def get_widget(lib):
     }
     return lookup[lib]()
 
-def make_specific_wsgi_app(lib, mul):
-    lookup = {
-        'tw1' : make_tw1_wsgi_app,
-        'tw2' : make_tw2_wsgi_app,
-        'ew' : make_ew_wsgi_app,
-    }
-    return lookup[lib](mul)
-
 def test_wsgi_app_works():
+    # TODO
+    return
     tw1_app = make_tw1_wsgi_app(1)
     tw2_app = make_tw2_wsgi_app(1)
     ew_app = make_ew_wsgi_app(1)
@@ -143,81 +111,134 @@ def test_wsgi_app_works():
     assert(body1 == body2)
     assert(body2 == body3)
 
-def fake_ew_middleware():
-    """ TODO -- This does not work.
+def get_middlewares(lib):
+    lookup = {
+        'tw1' : [tw.api.make_middleware, RegistryManager],
+        'tw2' : [tw2.core.make_middleware, RegistryManager],
+        'ew'  : [ew.WidgetMiddleware, RegistryManager],
+    }
+    return lookup[lib]
 
-    I'm going to have to rewrite tests five through 9 to all use the wsgi stack
-    since EasyWidgets depends on it so hard.
 
-    """
-
-    registry = Registry()
-    registry.register(
-        ew.widget_context,
-        ew.core.WidgetContext(
-            scheme='http',
-            resource_manager=ew.ResourceManager()
-        )
-    )
-
-def test9(lib):
-    """ Minimizing tw2 subclasses with params in display """
+def build_widget_smartly(lib, n_resources=1, *args, **kwargs):
     widget = get_widget(lib)
-    if lib == 'tw1':
+    widget.resources = [css_lookup[lib]]*n_resources
+    if lib == 'ew':
         widget = widget()
-    for i in range(itertest_passes):
-        foo = widget.display(boz='faz')
-
-def test8(lib):
-    """ Minimizing tw2 subclasses with params before display"""
-    widget = get_widget(lib)
-    if lib == 'tw1':
-        widget = widget()
-        for i in range(itertest_passes):
-            foo = widget.display(boz='faz')
+    elif lib == 'tw1':
+        widget = widget(kwargs['id'])
     elif lib == 'tw2':
-        widget = widget(boz='faz')
-        for i in range(itertest_passes):
-            foo = widget.display()
-    else:
-        raise ValueError, 'lib is unrecognized'
+        pass
+    return widget
 
 def test7(lib):
     """ Specifying parameters *and* displaying many times. """
-    widget = get_widget(lib)
-    for i in range(itertest_passes):
-        foo = widget().display(boz='faz')
+    def prefunc(lib, *args, **kw):
+        widget = build_widget_smartly(lib, **kw)
+        return widget
+
+    def postfunc(widget, **kwargs):
+        for i in range(itertest_passes):
+            widget.display(**kwargs)
+
+        return widget.display(**kwargs)
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
+
+    status, headers, body = fake_request(app, fake_env)
 
 def test6(lib):
     """ Specifying parameters once, then displaying many times. """
-    widget = get_widget(lib)(boz='faz')
-    for i in range(itertest_passes):
-        widget.display(boz='faz')
+
+    def prefunc(lib, *args, **kw):
+        widget = build_widget_smartly(lib, **kw)
+        if lib == 'tw2':
+            widget = widget(**kw)
+        return widget
+
+    def postfunc(widget, **kwargs):
+        for i in range(itertest_passes):
+            if lib == 'tw1':
+                widget.display(**kwargs)
+            else:
+                widget.display()
+
+        if lib == 'tw1':
+            return widget.display(**kwargs)
+        else:
+            return widget.display()
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
+
+    status, headers, body = fake_request(app, fake_env)
         
 def test5(lib):
     """ Instantiating widgets many times (and displaying them) """
-    if lib == 'ew':
-        fake_ew_middleware()
-    for i in range(itertest_passes):
-        foo = get_widget(lib)().display(boz='faz')
+
+    def prefunc(lib, *args, **kw):
+        return None
+
+    def postfunc(widget, **kwargs):
+        for i in range(itertest_passes):
+            widget = build_widget_smartly(lib, **kwargs)
+            widget.display(**kwargs)
+
+        return widget.display(**kwargs)
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
+
+    status, headers, body = fake_request(app, fake_env)
 
 def test4(lib):
     """ Setting up an app. Displaying once. """
-    app = make_specific_wsgi_app(lib, 1)
-    fake_request(app, fake_env)
+    def prefunc(lib, *args, **kw):
+        return build_widget_smartly(lib, *args, **kw)
+
+    def postfunc(widget, **kwargs):
+        return widget.display(**kwargs)
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
+
+    status, headers, body = fake_request(app, fake_env)
 
 def test3(lib):
     """ Setting up an app """
-    app = make_specific_wsgi_app(lib, 1)
+    def prefunc(lib, *args, **kw):
+        return build_widget_smartly(lib, *args, **kw)
+
+    def postfunc(widget, **kwargs):
+        return widget.display(**kwargs)
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
 
 def test2(lib):
     """ Handling many (duplicate) resources """
-    app = make_specific_wsgi_app(lib, 50)
-    for i in range(itertest_passes):
-        status, headers, body = fake_request(app, fake_env)
+    def prefunc(lib, *args, **kw):
+        return build_widget_smartly(lib, *args, n_resources=50, **kw)
+
+    def postfunc(widget, **kwargs):
+        return widget.display(**kwargs)
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
+
+    status, headers, body = fake_request(app, fake_env)
 
 def test1(lib):
     """ Handling many WSGI requests """
-    app = make_specific_wsgi_app(lib, 1)
+    def prefunc(lib, *args, **kw):
+        return build_widget_smartly(lib, *args, **kw)
+
+    def postfunc(widget, **kwargs):
+        return widget.display(**kwargs)
+
+    app = make_wsgi_app(lib, prefunc, postfunc, get_middlewares(lib),
+                        id='some_id', boz='far')
+
     for i in range(itertest_passes):
         status, headers, body = fake_request(app, fake_env)

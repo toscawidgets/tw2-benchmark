@@ -11,8 +11,8 @@ if __name__ == '__main__':
     test_wsgi_app_works()
 
     widget_libs = ['ew', 'tw1', 'tw2']
-    num_tests = 9
-    test_range = map(str, range(1, 5))#num_tests+1))
+    num_tests = 7
+    test_range = map(str, range(1, num_tests+1))
     passes = 10
 
     print "tw2-benchmark"

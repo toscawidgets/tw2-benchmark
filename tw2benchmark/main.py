@@ -21,9 +21,9 @@ def do_plot(results, libs):
             data[i][j] = data[i][j] / float(maxes[i])
 
     width, height = 512, 128
-    fname = 'tw2benchmark/raw/master/summary.png'
+    fname = 'tw2-benchmark/raw/master/summary.png'
     cp.bar_plot(
-        fname,
+        'summary.png',
         data,
         width,
         height,

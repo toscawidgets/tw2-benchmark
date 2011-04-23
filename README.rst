@@ -25,7 +25,7 @@ Comparing toscawidgets1, tw2, and EasyWidgets for speed (generated: 2011-04-23)
 .. comment: (running test7('ew'))
 .. comment: producing graphs
 
-.. figure:: tw2-benchmark/raw/master/summary.png
+.. figure:: tw2benchmark/raw/master/summary.png
    :scale: 400 %
 
    Normalized score results in order tw1, tw2, ew

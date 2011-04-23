@@ -1,16 +1,7 @@
 tw2-benchmark
 =============
-Comparing toscawidgets1 with tw2 for speed (generated: 2011-04-22)
+Comparing toscawidgets1 with tw2 for speed (generated: 2011-04-23)
 
-.. comment: Testing tw1 output against tw1
-.. comment: Testing tw1 output against tw2
-.. comment: Testing tw1 output against ew
-.. comment: Testing tw2 output against tw1
-.. comment: Testing tw2 output against tw2
-.. comment: Testing tw2 output against ew
-.. comment: Testing ew output against tw1
-.. comment: Testing ew output against tw2
-.. comment: Testing ew output against ew
 .. comment: (running test1('ew'))
 .. comment: (running test1('tw1'))
 .. comment: (running test1('tw2'))
@@ -60,45 +51,45 @@ tests with the ``timeit`` module
 
 test1 - Handling many WSGI requests ::
 
-   test1('ew')   min: 0.1710   max: 0.1787   avg: 0.1737
-   test1('tw1')   min: 0.3249   max: 0.3388   avg: 0.3300
-   test1('tw2')   min: 0.2519   max: 0.2676   avg: 0.2568
+   test1('ew')   min: 0.4135   max: 0.4324   avg: 0.4180
+   test1('tw1')   min: 0.5704   max: 0.5980   avg: 0.5844
+   test1('tw2')   min: 0.5342   max: 0.5496   avg: 0.5403
 
 test2 - Handling many (duplicate) resources ::
 
-   test2('ew')   min: 0.0384   max: 0.0402   avg: 0.0389
-   test2('tw1')   min: 0.0262   max: 0.0268   avg: 0.0265
-   test2('tw2')   min: 0.1348   max: 0.1419   avg: 0.1379
+   test2('ew')   min: 0.0675   max: 0.0718   avg: 0.0694
+   test2('tw1')   min: 0.0359   max: 0.0367   avg: 0.0362
+   test2('tw2')   min: 0.1363   max: 0.1402   avg: 0.1375
 
 test3 - Setting up an app ::
 
-   test3('ew')   min: 0.0368   max: 0.0394   avg: 0.0377
-   test3('tw1')   min: 0.0027   max: 0.0028   avg: 0.0027
-   test3('tw2')   min: 0.0084   max: 0.0087   avg: 0.0084
+   test3('ew')   min: 0.0370   max: 0.0386   avg: 0.0374
+   test3('tw1')   min: 0.0027   max: 0.0030   avg: 0.0028
+   test3('tw2')   min: 0.0084   max: 0.0093   avg: 0.0089
 
 test4 - Setting up an app. Displaying once. ::
 
-   test4('ew')   min: 0.0386   max: 0.0399   avg: 0.0389
-   test4('tw1')   min: 0.0263   max: 0.0269   avg: 0.0264
-   test4('tw2')   min: 0.0111   max: 0.0115   avg: 0.0112
+   test4('ew')   min: 0.0675   max: 0.0688   avg: 0.0679
+   test4('tw1')   min: 0.0361   max: 0.0399   avg: 0.0371
+   test4('tw2')   min: 0.0138   max: 0.0153   avg: 0.0142
 
 test5 - Instantiating widgets many times (and displaying them) ::
 
-   test5('ew')   min: 0.2049   max: 0.2138   avg: 0.2079
-   test5('tw1')   min: 0.4552   max: 0.4633   avg: 0.4585
-   test5('tw2')   min: 0.8694   max: 0.8902   avg: 0.8766
+   test5('ew')   min: 0.4510   max: 0.4599   avg: 0.4546
+   test5('tw1')   min: 0.7051   max: 0.7314   avg: 0.7178
+   test5('tw2')   min: 1.1640   max: 1.1893   avg: 1.1741
 
 test6 - Specifying parameters once, then displaying many times. ::
 
-   test6('ew')   min: 0.1499   max: 0.1743   avg: 0.1590
-   test6('tw1')   min: 0.2299   max: 0.2415   avg: 0.2344
-   test6('tw2')   min: 0.1931   max: 0.1958   avg: 0.1943
+   test6('ew')   min: 0.3841   max: 0.3981   avg: 0.3906
+   test6('tw1')   min: 0.4741   max: 0.4873   avg: 0.4802
+   test6('tw2')   min: 0.4747   max: 0.4961   avg: 0.4824
 
 test7 - Specifying parameters *and* displaying many times. ::
 
-   test7('ew')   min: 0.1384   max: 0.1440   avg: 0.1400
-   test7('tw1')   min: 0.2303   max: 0.2360   avg: 0.2325
-   test7('tw2')   min: 0.1917   max: 0.2002   avg: 0.1951
+   test7('ew')   min: 0.3834   max: 0.3881   avg: 0.3850
+   test7('tw1')   min: 0.4732   max: 0.4818   avg: 0.4757
+   test7('tw2')   min: 0.4743   max: 0.4835   avg: 0.4790
 
 tests with the ``hotshot`` module
 ---------------------------------
@@ -108,47 +99,47 @@ test1
 
 test1 with ew -  Handling many WSGI requests ::
 
-         6660 function calls in 0.024 CPU seconds
+         23698 function calls (23486 primitive calls) in 0.065 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 90 to 5 due to restriction <5>
+   List reduced from 216 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      200    0.004    0.000    0.004    0.000 render.py:141(__getitem__)
-        5    0.002    0.000    0.002    0.000 render.py:257(__init__)
-      100    0.001    0.000    0.006    0.000 string.py:174(safe_substitute)
-      100    0.001    0.000    0.014    0.000 widget.py:37(display)
-      200    0.001    0.000    0.003    0.000 utils.py:24(push_context)
+      600    0.004    0.000    0.023    0.000 output.py:451(__call__)
+      600    0.003    0.000    0.018    0.000 output.py:628(__call__)
+      800    0.003    0.000    0.013    0.000 output.py:759(__call__)
+      400    0.003    0.000    0.005    0.000 utils.py:24(push_context)
+ 1000/800    0.002    0.000    0.004    0.000 base.py:537(_flatten)
 
 
 test1 with tw1 -  Handling many WSGI requests ::
 
-         15429 function calls (14807 primitive calls) in 0.049 CPU seconds
+         30536 function calls (29724 primitive calls) in 0.090 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 248 to 5 due to restriction <5>
+   List reduced from 276 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      600    0.004    0.000    0.025    0.000 output.py:320(__call__)
+      600    0.004    0.000    0.019    0.000 output.py:628(__call__)
+      800    0.003    0.000    0.014    0.000 output.py:759(__call__)
       100    0.002    0.000    0.006    0.000 base.py:560(prepare_dict)
- 1000/600    0.002    0.000    0.004    0.000 registry.py:136(__getattr__)
-      200    0.001    0.000    0.002    0.000 util.py:352(__get__)
-      100    0.001    0.000    0.046    0.000 middleware.py:45(wsgi_app)
-      200    0.001    0.000    0.002    0.000 response.py:36(__init__)
+ 1000/800    0.002    0.000    0.005    0.000 base.py:537(_flatten)
 
 
 test1 with tw2 -  Handling many WSGI requests ::
 
-         8634 function calls (8531 primitive calls) in 0.035 CPU seconds
+         23033 function calls (22830 primitive calls) in 0.078 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 119 to 5 due to restriction <5>
+   List reduced from 158 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      100    0.002    0.000    0.017    0.000 template.py:77(render)
-  200/100    0.002    0.000    0.024    0.000 widgets.py:235(display)
-      100    0.002    0.000    0.032    0.000 middleware.py:136(__call__)
-      100    0.001    0.000    0.006    0.000 _home_rjbpop_devel_tw2_benchmark_tw2benchmark_templates_tw2_mak:25(render_body)
-      200    0.001    0.000    0.001    0.000 widgets.py:181(prepare)
+      600    0.005    0.000    0.025    0.000 output.py:451(__call__)
+     1400    0.003    0.000    0.003    0.000 posixpath.py:79(split)
+      600    0.003    0.000    0.016    0.000 output.py:759(__call__)
+      600    0.003    0.000    0.019    0.000 output.py:628(__call__)
+      200    0.003    0.000    0.005    0.000 pkg_resources.py:1253(_setup_prefix)
 
 
 
@@ -157,10 +148,59 @@ test2
 
 test2 with ew -  Handling many (duplicate) resources ::
 
-         1908 function calls in 0.006 CPU seconds
+         5779 function calls (5765 primitive calls) in 0.013 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 90 to 5 due to restriction <5>
+   List reduced from 214 to 5 due to restriction <5>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.002    0.002    0.006    0.006 input.py:171(_build_foreign)
+     1764    0.002    0.000    0.004    0.000 pyexpat.c:871(Default)
+     1764    0.002    0.000    0.002    0.000 input.py:237(_handle_other)
+        5    0.002    0.000    0.002    0.000 render.py:257(__init__)
+       45    0.001    0.000    0.002    0.000 pkg_resources.py:2257(insert_on)
+
+
+test2 with tw1 -  Handling many (duplicate) resources ::
+
+         4202 function calls (4182 primitive calls) in 0.008 CPU seconds
+
+   Ordered by: internal time, call count
+   List reduced from 274 to 5 due to restriction <5>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.002    0.002    0.005    0.005 input.py:171(_build_foreign)
+     1764    0.002    0.000    0.003    0.000 pyexpat.c:871(Default)
+     1764    0.002    0.000    0.002    0.000 input.py:237(_handle_other)
+        2    0.000    0.000    0.000    0.000 eval.py:428(_compile)
+        8    0.000    0.000    0.006    0.001 input.py:142(_generate)
+
+
+test2 with tw2 -  Handling many (duplicate) resources ::
+
+         2519 function calls (2367 primitive calls) in 0.017 CPU seconds
+
+   Ordered by: internal time, call count
+   List reduced from 159 to 5 due to restriction <5>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     52/2    0.006    0.000    0.014    0.007 widgets.py:92(post_define)
+       52    0.003    0.000    0.005    0.000 params.py:135(__new__)
+     52/2    0.001    0.000    0.014    0.007 widgets.py:31(__new__)
+       52    0.001    0.000    0.001    0.000 copy.py:65(copy)
+        1    0.001    0.001    0.001    0.001 directives.py:166(__call__)
+
+
+
+test3
+~~~~~
+
+test3 with ew -  Setting up an app ::
+
+         1853 function calls in 0.006 CPU seconds
+
+   Ordered by: internal time, call count
+   List reduced from 50 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
         5    0.002    0.000    0.002    0.000 render.py:257(__init__)
@@ -170,58 +210,9 @@ test2 with ew -  Handling many (duplicate) resources ::
         1    0.000    0.000    0.000    0.000 render.py:175(__init__)
 
 
-test2 with tw1 -  Handling many (duplicate) resources ::
-
-         1074 function calls (1046 primitive calls) in 0.004 CPU seconds
-
-   Ordered by: internal time, call count
-   List reduced from 247 to 5 due to restriction <5>
-
-   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000    0.002    0.002 template.py:471(_compile_text)
-       44    0.000    0.000    0.000    0.000 lexer.py:64(match_reg)
-      141    0.000    0.000    0.000    0.000 re.py:229(_compile)
-       29    0.000    0.000    0.001    0.000 pygen.py:55(writeline)
-       30    0.000    0.000    0.000    0.000 posixpath.py:308(normpath)
-
-
-test2 with tw2 -  Handling many (duplicate) resources ::
-
-         2375 function calls (2224 primitive calls) in 0.016 CPU seconds
-
-   Ordered by: internal time, call count
-   List reduced from 119 to 5 due to restriction <5>
-
-   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     52/2    0.006    0.000    0.013    0.007 widgets.py:92(post_define)
-       52    0.003    0.000    0.005    0.000 params.py:135(__new__)
-     52/2    0.001    0.000    0.014    0.007 widgets.py:31(__new__)
-       52    0.001    0.000    0.001    0.000 copy.py:65(copy)
-      824    0.001    0.000    0.001    0.000 params.py:171(<genexpr>)
-
-
-
-test3
-~~~~~
-
-test3 with ew -  Setting up an app ::
-
-         1853 function calls in 0.005 CPU seconds
-
-   Ordered by: internal time, call count
-   List reduced from 50 to 5 due to restriction <5>
-
-   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        5    0.001    0.000    0.001    0.000 render.py:257(__init__)
-       45    0.001    0.000    0.002    0.000 pkg_resources.py:2257(insert_on)
-     1170    0.001    0.000    0.001    0.000 pkg_resources.py:1831(_normalize_cached)
-        9    0.000    0.000    0.001    0.000 pkg_resources.py:534(resolve)
-        1    0.000    0.000    0.000    0.000 render.py:175(__init__)
-
-
 test3 with tw1 -  Setting up an app ::
 
-         114 function calls in 0.000 CPU seconds
+         114 function calls in 0.001 CPU seconds
 
    Ordered by: internal time, call count
    List reduced from 49 to 5 due to restriction <5>
@@ -255,47 +246,47 @@ test4
 
 test4 with ew -  Setting up an app. Displaying once. ::
 
-         1908 function calls in 0.006 CPU seconds
+         5779 function calls (5765 primitive calls) in 0.014 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 90 to 5 due to restriction <5>
+   List reduced from 214 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        5    0.001    0.000    0.001    0.000 render.py:257(__init__)
+        1    0.002    0.002    0.006    0.006 input.py:171(_build_foreign)
+     1764    0.002    0.000    0.004    0.000 pyexpat.c:871(Default)
+     1764    0.002    0.000    0.002    0.000 input.py:237(_handle_other)
+        5    0.002    0.000    0.002    0.000 render.py:257(__init__)
        45    0.001    0.000    0.002    0.000 pkg_resources.py:2257(insert_on)
-     1170    0.001    0.000    0.001    0.000 pkg_resources.py:1831(_normalize_cached)
-        9    0.000    0.000    0.001    0.000 pkg_resources.py:534(resolve)
-        1    0.000    0.000    0.000    0.000 render.py:175(__init__)
 
 
 test4 with tw1 -  Setting up an app. Displaying once. ::
 
-         1074 function calls (1046 primitive calls) in 0.004 CPU seconds
+         4202 function calls (4182 primitive calls) in 0.008 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 247 to 5 due to restriction <5>
+   List reduced from 274 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000    0.002    0.002 template.py:471(_compile_text)
-       44    0.000    0.000    0.000    0.000 lexer.py:64(match_reg)
-      141    0.000    0.000    0.000    0.000 re.py:229(_compile)
-       30    0.000    0.000    0.000    0.000 posixpath.py:308(normpath)
-       29    0.000    0.000    0.001    0.000 pygen.py:55(writeline)
+        1    0.002    0.002    0.005    0.005 input.py:171(_build_foreign)
+     1764    0.002    0.000    0.003    0.000 pyexpat.c:871(Default)
+     1764    0.002    0.000    0.002    0.000 input.py:237(_handle_other)
+        2    0.000    0.000    0.000    0.000 eval.py:428(_compile)
+        8    0.000    0.000    0.005    0.001 input.py:142(_generate)
 
 
 test4 with tw2 -  Setting up an app. Displaying once. ::
 
-         317 function calls (313 primitive calls) in 0.002 CPU seconds
+         461 function calls (456 primitive calls) in 0.002 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 118 to 5 due to restriction <5>
+   List reduced from 158 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
       3/2    0.000    0.000    0.001    0.000 widgets.py:92(post_define)
         3    0.000    0.000    0.000    0.000 params.py:135(__new__)
       3/2    0.000    0.000    0.001    0.000 widgets.py:31(__new__)
         2    0.000    0.000    0.000    0.000 pkg_resources.py:2257(insert_on)
-        3    0.000    0.000    0.000    0.000 copy.py:65(copy)
+        6    0.000    0.000    0.000    0.000 output.py:451(__call__)
 
 
 
@@ -304,47 +295,47 @@ test5
 
 test5 with ew -  Instantiating widgets many times (and displaying them) ::
 
-         6991 function calls in 0.027 CPU seconds
+         23766 function calls (23552 primitive calls) in 0.070 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 90 to 5 due to restriction <5>
+   List reduced from 216 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      202    0.004    0.000    0.004    0.000 render.py:141(__getitem__)
-      100    0.003    0.000    0.003    0.000 widgets.py:48(get_ew_widget)
-      101    0.002    0.000    0.015    0.000 widget.py:37(display)
-      101    0.001    0.000    0.006    0.000 string.py:174(safe_substitute)
-        5    0.001    0.000    0.001    0.000 render.py:257(__init__)
+ 1010/808    0.004    0.000    0.007    0.000 base.py:537(_flatten)
+      606    0.004    0.000    0.026    0.000 output.py:451(__call__)
+      606    0.004    0.000    0.020    0.000 output.py:628(__call__)
+      100    0.003    0.000    0.004    0.000 widgets.py:48(get_ew_widget)
+      808    0.003    0.000    0.015    0.000 output.py:759(__call__)
 
 
 test5 with tw1 -  Instantiating widgets many times (and displaying them) ::
 
-         18191 function calls (17763 primitive calls) in 0.065 CPU seconds
+         33419 function calls (32799 primitive calls) in 0.105 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 248 to 5 due to restriction <5>
+   List reduced from 276 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     2300    0.007    0.000    0.010    0.000 base.py:44(__setattr__)
+     2300    0.007    0.000    0.011    0.000 base.py:44(__setattr__)
       100    0.005    0.000    0.018    0.000 base.py:249(__new__)
-      100    0.003    0.000    0.004    0.000 meta.py:12(__new__)
+      606    0.004    0.000    0.025    0.000 output.py:320(__call__)
+      606    0.004    0.000    0.019    0.000 output.py:628(__call__)
      2200    0.003    0.000    0.003    0.000 base.py:728(__setattr__)
-      100    0.002    0.000    0.006    0.000 util.py:138(wrapper)
 
 
 test5 with tw2 -  Instantiating widgets many times (and displaying them) ::
 
-         14925 function calls (14524 primitive calls) in 0.105 CPU seconds
+         29469 function calls (28967 primitive calls) in 0.149 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 119 to 5 due to restriction <5>
+   List reduced from 159 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-  300/200    0.032    0.000    0.051    0.000 widgets.py:92(post_define)
-      300    0.015    0.000    0.025    0.000 params.py:135(__new__)
-  300/200    0.007    0.000    0.072    0.000 widgets.py:31(__new__)
+  300/200    0.032    0.000    0.052    0.000 widgets.py:92(post_define)
+      300    0.016    0.000    0.025    0.000 params.py:135(__new__)
+  300/200    0.007    0.000    0.074    0.000 widgets.py:31(__new__)
+      606    0.005    0.000    0.027    0.000 output.py:451(__call__)
       300    0.004    0.000    0.007    0.000 copy.py:65(copy)
-      802    0.004    0.000    0.004    0.000 functools.py:17(update_wrapper)
 
 
 
@@ -353,47 +344,47 @@ test6
 
 test6 with ew -  Specifying parameters once, then displaying many times. ::
 
-         5308 function calls in 0.021 CPU seconds
+         22479 function calls (22265 primitive calls) in 0.061 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 90 to 5 due to restriction <5>
+   List reduced from 216 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      202    0.004    0.000    0.005    0.000 render.py:141(__getitem__)
-        5    0.002    0.000    0.002    0.000 render.py:257(__init__)
-      101    0.001    0.000    0.007    0.000 string.py:174(safe_substitute)
-      202    0.001    0.000    0.003    0.000 utils.py:24(push_context)
-      101    0.001    0.000    0.015    0.000 widget.py:37(display)
+      606    0.004    0.000    0.023    0.000 output.py:451(__call__)
+      606    0.004    0.000    0.018    0.000 output.py:628(__call__)
+      808    0.003    0.000    0.013    0.000 output.py:759(__call__)
+      404    0.003    0.000    0.005    0.000 utils.py:24(push_context)
+ 1010/808    0.002    0.000    0.004    0.000 base.py:537(_flatten)
 
 
 test6 with tw1 -  Specifying parameters once, then displaying many times. ::
 
-         9974 function calls (9546 primitive calls) in 0.035 CPU seconds
+         25202 function calls (24582 primitive calls) in 0.077 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 248 to 5 due to restriction <5>
+   List reduced from 276 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      606    0.005    0.000    0.026    0.000 output.py:320(__call__)
+      606    0.004    0.000    0.020    0.000 output.py:628(__call__)
+      808    0.003    0.000    0.014    0.000 output.py:759(__call__)
+ 1010/808    0.002    0.000    0.005    0.000 base.py:537(_flatten)
       101    0.002    0.000    0.006    0.000 base.py:560(prepare_dict)
- 1010/606    0.002    0.000    0.004    0.000 registry.py:136(__getattr__)
-      202    0.001    0.000    0.002    0.000 util.py:352(__get__)
-      101    0.001    0.000    0.008    0.000 runtime.py:642(_render)
-      100    0.001    0.000    0.001    0.000 lookup.py:294(_check)
 
 
 test6 with tw2 -  Specifying parameters once, then displaying many times. ::
 
-         5882 function calls (5775 primitive calls) in 0.027 CPU seconds
+         20425 function calls (20217 primitive calls) in 0.069 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 120 to 5 due to restriction <5>
+   List reduced from 159 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      101    0.002    0.000    0.002    0.000 runtime.py:630(_populate_self_namespace)
-  202/101    0.002    0.000    0.024    0.000 widgets.py:235(display)
-      101    0.001    0.000    0.007    0.000 _home_rjbpop_devel_tw2_benchmark_tw2benchmark_templates_tw2_mak:25(render_body)
-      101    0.001    0.000    0.017    0.000 template.py:77(render)
-      212    0.001    0.000    0.001    0.000 functools.py:17(update_wrapper)
+      606    0.004    0.000    0.024    0.000 output.py:451(__call__)
+     1414    0.003    0.000    0.003    0.000 posixpath.py:79(split)
+      606    0.003    0.000    0.016    0.000 output.py:759(__call__)
+      202    0.003    0.000    0.006    0.000 pkg_resources.py:1253(_setup_prefix)
+      606    0.003    0.000    0.019    0.000 output.py:628(__call__)
 
 
 
@@ -402,47 +393,47 @@ test7
 
 test7 with ew -  Specifying parameters *and* displaying many times. ::
 
-         5308 function calls in 0.019 CPU seconds
+         22479 function calls (22265 primitive calls) in 0.062 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 90 to 5 due to restriction <5>
+   List reduced from 216 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      202    0.003    0.000    0.003    0.000 render.py:141(__getitem__)
-        5    0.001    0.000    0.001    0.000 render.py:257(__init__)
-      101    0.001    0.000    0.006    0.000 string.py:174(safe_substitute)
-      101    0.001    0.000    0.013    0.000 widget.py:37(display)
-      202    0.001    0.000    0.003    0.000 utils.py:24(push_context)
+      606    0.004    0.000    0.024    0.000 output.py:451(__call__)
+      606    0.004    0.000    0.018    0.000 output.py:628(__call__)
+      808    0.003    0.000    0.013    0.000 output.py:759(__call__)
+      404    0.003    0.000    0.005    0.000 utils.py:24(push_context)
+ 1010/808    0.002    0.000    0.005    0.000 base.py:537(_flatten)
 
 
 test7 with tw1 -  Specifying parameters *and* displaying many times. ::
 
-         9974 function calls (9546 primitive calls) in 0.034 CPU seconds
+         25202 function calls (24582 primitive calls) in 0.073 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 248 to 5 due to restriction <5>
+   List reduced from 276 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      606    0.004    0.000    0.024    0.000 output.py:320(__call__)
+      606    0.004    0.000    0.018    0.000 output.py:628(__call__)
+      808    0.003    0.000    0.013    0.000 output.py:759(__call__)
+ 1010/808    0.002    0.000    0.005    0.000 base.py:537(_flatten)
       101    0.002    0.000    0.006    0.000 base.py:560(prepare_dict)
- 1010/606    0.002    0.000    0.004    0.000 registry.py:136(__getattr__)
-      202    0.001    0.000    0.002    0.000 util.py:352(__get__)
-      101    0.001    0.000    0.008    0.000 runtime.py:642(_render)
-      101    0.001    0.000    0.022    0.000 view.py:26(_renderer)
 
 
 test7 with tw2 -  Specifying parameters *and* displaying many times. ::
 
-         5817 function calls (5713 primitive calls) in 0.027 CPU seconds
+         20361 function calls (20156 primitive calls) in 0.073 CPU seconds
 
    Ordered by: internal time, call count
-   List reduced from 119 to 5 due to restriction <5>
+   List reduced from 159 to 5 due to restriction <5>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-  202/101    0.002    0.000    0.024    0.000 widgets.py:235(display)
-      101    0.001    0.000    0.007    0.000 _home_rjbpop_devel_tw2_benchmark_tw2benchmark_templates_tw2_mak:25(render_body)
-      101    0.001    0.000    0.017    0.000 template.py:77(render)
-      202    0.001    0.000    0.001    0.000 widgets.py:181(prepare)
-      208    0.001    0.000    0.001    0.000 functools.py:17(update_wrapper)
+      606    0.004    0.000    0.026    0.000 output.py:451(__call__)
+     1414    0.003    0.000    0.003    0.000 posixpath.py:79(split)
+      606    0.003    0.000    0.017    0.000 output.py:759(__call__)
+      202    0.003    0.000    0.006    0.000 pkg_resources.py:1253(_setup_prefix)
+      606    0.003    0.000    0.021    0.000 output.py:628(__call__)
 
 
 

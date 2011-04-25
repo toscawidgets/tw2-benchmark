@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-def do_plot(results, libs):
+def do_plot(results, libs, tests):
     try:
         import tw2benchmark.CairoPlot as cp
     except ImportError as e:
@@ -9,8 +9,10 @@ def do_plot(results, libs):
         return []
 
     data, labels = [], []
-    for test, values in results.items():
-        labels.append(test)
+    for test in tests:
+        func = "test%s" % test
+        values = results[func]
+        labels.append(func)
         data.append( [values[lib]['min'] for lib in libs])
 
     maxes = [max(entry) for entry in data]
@@ -36,14 +38,16 @@ def do_plot(results, libs):
         v_bounds = None,
         rounded_corners = True,
         colors = [
-            [81/256.0, 102/256.0, 69/256.0],
-            [69/256.0, 10/256.0, 90/256.0],
-            [69/256.0, 83/256.0, 102/256.0],
+            [0/256.0, 101/256.0, 133/256.0],
+            [180/256.0, 162/256.0, 0/256.0],
+            [71/256.0, 43/256.0, 26/256.0],
         ],
     )
 
     return [
-        [fname, "Normalized score results in order %s" % ', '.join(libs)],
+        [fname,
+         "Normalized score results.  " +
+         "(tw1: blue, tw2: yellow, ew: brown)"]
     ]
 
 
@@ -84,7 +88,7 @@ if __name__ == '__main__':
             results[func][lib] = { 'min': _min, 'max': _max, 'avg' : _avg }
 
     print ".. comment: producing graphs"
-    charts = do_plot(results, widget_libs)
+    charts = do_plot(results, widget_libs, test_range)
 
     for fname, title in charts:
         print

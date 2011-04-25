@@ -26,7 +26,7 @@ fake_env = {
 
 def get_tw2_widget():
     class tw2Widget(tw2.core.Widget):
-        template = "genshi:tw2benchmark.templates.tw2"
+        template = "mako:tw2benchmark.templates.tw2"
         boz = tw2.core.Param('test', default='foo')
 
         def prepare(self):
@@ -36,7 +36,7 @@ def get_tw2_widget():
 
 def get_tw1_widget():
     class tw1Widget(tw.api.Widget):
-        template = "genshi:tw2benchmark.templates.tw1"
+        template = "mako:tw2benchmark.templates.tw1"
         params = ['boz']
         boz = 'foo'
 
@@ -50,7 +50,7 @@ def get_ew_widget():
     # NOTE -- this is not quite equivalent.  No 'prepare' or
     # 'update_params'.
     class ewWidget(ew.Widget):
-        template=ew.File('tw2benchmark.templates.ew', 'genshi')
+        template=ew.File('tw2benchmark.templates.ew')
 
     return ewWidget
 

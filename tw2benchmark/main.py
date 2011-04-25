@@ -68,6 +68,13 @@ if __name__ == '__main__':
     print "Comparing toscawidgets1, tw2, and EasyWidgets for speed",
     print "(generated: %s)" % datetime.datetime.now().strftime("%F")
     print
+    print "Speed results for tw2 are contingent on two patches not yet"
+    print "merged upstream:"
+    print
+    print " - https://bitbucket.org/ralphbean/tw2core/changeset/e8670e8e7315"
+    print " - https://bitbucket.org/ralphbean/tw2core/changeset/62f22632b61b"
+    print
+
 
     from widgets import test_wsgi_app_works
     test_wsgi_app_works()

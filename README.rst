@@ -2,13 +2,7 @@ tw2-benchmark
 =============
 Comparing toscawidgets1, tw2, and EasyWidgets for speed (generated: 2011-04-25)
 
-Speed results for tw2 are contingent on two patches not yet
-merged upstream:
-
- - https://bitbucket.org/ralphbean/tw2core/changeset/e8670e8e7315
- - https://bitbucket.org/ralphbean/tw2core/changeset/62f22632b61b
-
-It should also be noted that the tw1 and tw2 tests use ``mako`` templates while
+It should be noted that the tw1 and tw2 tests use ``mako`` templates while
 the ew tests use ``kajiki`` templates.  These are presumably the fastest
 template engines available for the respective libraries but they are,
 nonetheless, not the same engine.  This decision has an effect on test results.

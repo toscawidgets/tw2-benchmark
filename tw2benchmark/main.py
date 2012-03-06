@@ -68,14 +68,8 @@ if __name__ == '__main__':
     print "Comparing toscawidgets1, tw2, and EasyWidgets for speed",
     print "(generated: %s)" % datetime.datetime.now().strftime("%F")
     print
-    print "Speed results for tw2 are contingent on two patches not yet"
-    print "merged upstream:"
-    print
-    print " - https://bitbucket.org/ralphbean/tw2core/changeset/e8670e8e7315"
-    print " - https://bitbucket.org/ralphbean/tw2core/changeset/62f22632b61b"
-    print
     print """
-It should also be noted that the tw1 and tw2 tests use ``mako`` templates while
+It should be noted that the tw1 and tw2 tests use ``mako`` templates while
 the ew tests use ``kajiki`` templates.  These are presumably the fastest
 template engines available for the respective libraries but they are,
 nonetheless, not the same engine.  This decision has an effect on test results.

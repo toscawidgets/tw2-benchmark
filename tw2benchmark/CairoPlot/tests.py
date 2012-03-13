@@ -4,48 +4,62 @@ import math
 
 #Function Plot
 #test1
-data = lambda x : math.sin(0.1*x)*math.cos(x)
-CairoPlot.function_plot('function1', data, 800, 300, grid = True, dots = True, h_bounds=(0,80), step = 0.9, discrete = True)
+data = lambda x: math.sin(0.1 * x) * math.cos(x)
+CairoPlot.function_plot('function1', data, 800, 300, grid=True, dots=True,
+                        h_bounds=(0, 80), step=0.9, discrete=True)
 
 #test2
-CairoPlot.function_plot('function2', data, 800, 300, grid = True, h_bounds=(0,80), step = 0.9)
+CairoPlot.function_plot('function2', data, 800, 300, grid=True,
+                        h_bounds=(0, 80), step=0.9)
 
 #test3
-CairoPlot.function_plot('function3', data, 800, 300, grid = True, h_bounds=(0,80), step = 0.1)
+CairoPlot.function_plot('function3', data, 800, 300, grid=True,
+                        h_bounds=(0, 80), step=0.1)
 
 #test4
-data = lambda x : x**2
-CairoPlot.function_plot('function4', data, 400, 300, grid = True, h_bounds=(-10,10), step = 0.1)
+data = lambda x: x ** 2
+CairoPlot.function_plot('function4', data, 400, 300, grid=True,
+                        h_bounds=(-10, 10), step=0.1)
 
 #Bar Plot
 #test1
-data = {'teste00' : [27], 'teste01' : [10], 'teste02' : [18], 'teste03' : [5], 'teste04' : [1], 'teste05' : [22], 'teste06' : [31], 'teste07' : [8]}
-CairoPlot.bar_plot ('bar1', data, 400, 300, border = 20, grid = True, rounded_corners = False)
+data = {'teste00': [27], 'teste01': [10], 'teste02': [18], 'teste03': [5],
+        'teste04': [1], 'teste05': [22], 'teste06': [31], 'teste07': [8]}
+CairoPlot.bar_plot('bar1', data, 400, 300, border=20, grid=True,
+                    rounded_corners=False)
 
 #test2
-data = [3,1,10,2]
-CairoPlot.bar_plot ('bar2.png', data, 300, 300, border = 20, grid = True, rounded_corners = True)
+data = [3, 1, 10, 2]
+CairoPlot.bar_plot('bar2.png', data, 300, 300, border=20, grid=True,
+                    rounded_corners=True)
 
 #test3
 data = [[1.4, 3, 11], [8, 9, 21], [13, 10, 9], [2, 30, 8]]
 h_labels = ["group1", "group2", "group3", "group4"]
-colors = [(1,0.2,0), (1,0.7,0), (1,1,0)]
-CairoPlot.bar_plot ('bar3', data, 500, 350, border = 20, grid = True, rounded_corners = False, h_labels = h_labels,colors = colors)
-CairoPlot.bar_plot ('bar_rounded.png', data, 400, 300, border = 20, grid = True, rounded_corners = True, h_labels = h_labels, colors = colors)
-CairoPlot.bar_plot ('bar_3D.png', data, 400, 300, border = 20, grid = True, three_dimension = True, colors = colors)
+colors = [(1, 0.2, 0), (1, 0.7, 0), (1, 1, 0)]
+CairoPlot.bar_plot('bar3', data, 500, 350, border=20, grid=True,
+                    rounded_corners=False, h_labels=h_labels, colors=colors)
+CairoPlot.bar_plot('bar_rounded.png', data, 400, 300, border=20, grid=True,
+                    rounded_corners=True, h_labels=h_labels, colors=colors)
+CairoPlot.bar_plot('bar_3D.png', data, 400, 300, border=20, grid=True,
+                    three_dimension=True, colors=colors)
 
 #test4
-data = [[3,4], [4,8], [5,3], [9,1]]
+data = [[3, 4], [4, 8], [5, 3], [9, 1]]
 v_labels = ["line1", "line2", "line3", "line4", "line5", "line6"]
 h_labels = ["group1", "group2", "group3", "group4"]
-CairoPlot.bar_plot ('bar4', data, 600, 200, border = 20, grid = True)
-CairoPlot.bar_plot ('bar4_hLabels', data, 600, 200, border = 20, grid = True, h_labels = h_labels)
-CairoPlot.bar_plot ('bar4_vLabels', data, 600, 200, border = 20, grid = True, v_labels = v_labels)
-CairoPlot.bar_plot ('bar4_vLabels_hLabels', data, 600, 200, border = 20, grid = True, h_labels = h_labels, v_labels = v_labels)
-        
+CairoPlot.bar_plot('bar4', data, 600, 200, border=20, grid=True)
+CairoPlot.bar_plot('bar4_hLabels', data, 600, 200, border=20, grid=True,
+                    h_labels=h_labels)
+CairoPlot.bar_plot('bar4_vLabels', data, 600, 200, border=20, grid=True,
+                    v_labels=v_labels)
+CairoPlot.bar_plot('bar4_vLabels_hLabels', data, 600, 200, border=20,
+                    grid=True, h_labels=h_labels, v_labels=v_labels)
+
 #Dot Line Plot
 #test1
-data = {"john" : [-5, -2, 0, 1, 3], "mary" : [0, 0, 3, 5, 2], "philip" : [-2, -3, -4, 2, 1]}
+data = {"john": [-5, -2, 0, 1, 3], "mary": [0, 0, 3, 5, 2], "philip": [-2,
+        -3, -4, 2, 1]}
 h_labels = ["jan/2008", "feb/2008", "mar/2008", "apr/2008", "may/2008"]
 v_labels = ["jan/2008", "feb/2008", "mar/2008", "apr/2008", "may/2008"]
 CairoPlot.dot_line_plot('dotline1', data, 250, 150, axis = True, grid = True)
@@ -97,4 +111,3 @@ CairoPlot.donut_plot("donut_blog.png", data, 600, 400, background = background, 
 
 data = lambda x : math.sin(0.1*x)*math.cos(x)
 CairoPlot.function_plot('function_blog.png', data, 1000, 400, grid = True, h_bounds=(0,80), step = 0.1)
-

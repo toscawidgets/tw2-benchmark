@@ -62,52 +62,61 @@ data = {"john": [-5, -2, 0, 1, 3], "mary": [0, 0, 3, 5, 2], "philip": [-2,
         -3, -4, 2, 1]}
 h_labels = ["jan/2008", "feb/2008", "mar/2008", "apr/2008", "may/2008"]
 v_labels = ["jan/2008", "feb/2008", "mar/2008", "apr/2008", "may/2008"]
-CairoPlot.dot_line_plot('dotline1', data, 250, 150, axis = True, grid = True)
-CairoPlot.dot_line_plot('dotline1_dots', data, 400, 300, h_labels = h_labels, v_labels = v_labels, axis = True, grid = True, dots = True)
+CairoPlot.dot_line_plot('dotline1', data, 250, 150, axis=True, grid=True)
+CairoPlot.dot_line_plot('dotline1_dots', data, 400, 300, h_labels=h_labels,
+                        v_labels=v_labels, axis=True, grid=True, dots=True)
 
 #Pie Plot // Donut plot
 #test1
 background = cairo.LinearGradient(300, 0, 300, 400)
-background.add_color_stop_rgb(0,0.4,0.4,0.4)
-background.add_color_stop_rgb(1.0,0.1,0.1,0.1)
-data = {"john" : 700, "mary" : 100, "philip" : 100 , "suzy" : 50, "yman" : 50}
-CairoPlot.pie_plot("pie1", data, 600, 400, background = background )
+background.add_color_stop_rgb(0, 0.4, 0.4, 0.4)
+background.add_color_stop_rgb(1.0, 0.1, 0.1, 0.1)
+data = {"john": 700, "mary": 100, "philip": 100, "suzy": 50, "yman": 50}
+CairoPlot.pie_plot("pie1", data, 600, 400, background=background)
 
 #test2
-CairoPlot.donut_plot("donut1_background", data, 600, 400, background = background, gradient = True, inner_radius = 0.3)
-CairoPlot.donut_plot("donut1_gradient", data, 600, 400, gradient = True, inner_radius = 0.3)
-CairoPlot.donut_plot("donut1_shadow", data, 600, 400, gradient = False, shadow = True, inner_radius = 0.3)
+CairoPlot.donut_plot("donut1_background", data, 600, 400,
+                     background=background, gradient=True, inner_radius=0.3)
+CairoPlot.donut_plot("donut1_gradient", data, 600, 400, gradient=True,
+                     inner_radius=0.3)
+CairoPlot.donut_plot("donut1_shadow", data, 600, 400, gradient=False,
+                     shadow=True, inner_radius=0.3)
 
 #Gantt Chart
 #test1
-pieces = [(0.5,5.5) , [(0,4),(6,8)] , (5.5,7) , (7,8)]
-h_labels = [ 'teste01', 'teste02', 'teste03', 'teste04']
-v_labels = [ '0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008', '0009', '0010' ]
-colors = [ (1.0, 0.0, 0.0), (1.0, 0.7, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0) ]
+pieces = [(0.5, 5.5), [(0, 4), (6, 8)], (5.5, 7), (7, 8)]
+h_labels = ['teste01', 'teste02', 'teste03', 'teste04']
+v_labels = ['0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008',
+            '0009', '0010']
+colors = [(1.0, 0.0, 0.0), (1.0, 0.7, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0)]
 CairoPlot.gantt_chart('gantt1', pieces, 500, 350, h_labels, v_labels, colors)
 
 
 background = cairo.LinearGradient(300, 0, 300, 400)
-background.add_color_stop_rgb(0,0.7,0,0)
-background.add_color_stop_rgb(1.0,0.3,0,0)
-data = {"john" : 700, "mary" : 100, "philip" : 100 , "suzy" : 50, "yman" : 50}
-colors = [ (232.0/255, 118.0/255, 107.0/255), 
-           (255.0/255, 150.0/255, 117.0/255),
-           (255.0/255, 130.0/255, 154.0/255),
-           (232.0/255, 107.0/255, 194.0/255),
-           (240.0/255, 117.0/255, 255.0/255) ]
-CairoPlot.pie_plot("pie_blog.png", data, 600, 400, background = background, gradient = True, shadow = True, colors = colors)
+background.add_color_stop_rgb(0, 0.7, 0, 0)
+background.add_color_stop_rgb(1.0, 0.3, 0, 0)
+data = {"john": 700, "mary": 100, "philip": 100, "suzy": 50, "yman": 50}
+colors = [(232.0 / 255, 118.0 / 255, 107.0 / 255),
+          (255.0 / 255, 150.0 / 255, 117.0 / 255),
+          (255.0 / 255, 130.0 / 255, 154.0 / 255),
+          (232.0 / 255, 107.0 / 255, 194.0 / 255),
+          (240.0 / 255, 117.0 / 255, 255.0 / 255)]
+CairoPlot.pie_plot("pie_blog.png", data, 600, 400, background=background,
+                    gradient=True, shadow=True, colors=colors)
 
 
 background = cairo.LinearGradient(300, 0, 300, 400)
-background.add_color_stop_rgb(0,0,0.4,0)
-background.add_color_stop_rgb(1.0,0,0.1,0)
-colors = [ (73.0/255, 233.0/255, 163.0/255), 
-           (80.0/255, 254.0/255, 228.0/255),
-           (95.0/255, 255.0/255, 140.0/255),
-           (75.0/255, 233.0/255, 73.0/255),
-           (142.0/255, 255.0/255, 81.0/255) ]
-CairoPlot.donut_plot("donut_blog.png", data, 600, 400, background = background, gradient = True, shadow = True, colors = colors, inner_radius = 0.3)
+background.add_color_stop_rgb(0, 0, 0.4, 0)
+background.add_color_stop_rgb(1.0, 0, 0.1, 0)
+colors = [(73.0 / 255, 233.0 / 255, 163.0 / 255),
+          (80.0 / 255, 254.0 / 255, 228.0 / 255),
+          (95.0 / 255, 255.0 / 255, 140.0 / 255),
+          (75.0 / 255, 233.0 / 255, 73.0 / 255),
+          (142.0 / 255, 255.0 / 255, 81.0 / 255)]
+CairoPlot.donut_plot("donut_blog.png", data, 600, 400, background=background,
+                     gradient=True, shadow=True, colors=colors,
+                     inner_radius=0.3)
 
-data = lambda x : math.sin(0.1*x)*math.cos(x)
-CairoPlot.function_plot('function_blog.png', data, 1000, 400, grid = True, h_bounds=(0,80), step = 0.1)
+data = lambda x: math.sin(0.1 * x) * math.cos(x)
+CairoPlot.function_plot('function_blog.png', data, 1000, 400, grid=True,
+                        h_bounds=(0, 80), step=0.1)
